@@ -13,7 +13,7 @@
 
 - Wähle die Breite der Ausgabe (standardmäßig 100):
 
-`asciiart -width {{50}} {{pfad/zum/bild.jpg}}`
+`asciiart --width {{50}} {{pfad/zum/bild.jpg}}`
 
 - Zeige die Ausgabe in Farbe:
 
@@ -23,6 +23,6 @@
 
 `asciiart --format {{text|html}} {{pfad/zum/bild.jpg}}`
 
-- Invertiere die Buchstaben Map:
+- Invertiere die Zeichentabelle:
 
 `asciiart --invert-chars {{pfad/zum/bild.jpg}}`

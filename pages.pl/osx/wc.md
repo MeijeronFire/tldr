@@ -1,9 +1,9 @@
 # wc
 
-> Zlicza linie, słowa, i bajty
-> Więcej informacji: <https://www.gnu.org/software/coreutils/wc>.
+> Zlicza linie, słowa, i bajty.
+> Więcej informacji: <https://keith.github.io/xcode-man-pages/wc.1.html>.
 
-- Policz linie w pliku
+- Policz linie w pliku:
 
 `wc -l {{ścieżka/do/pliku}}`
 

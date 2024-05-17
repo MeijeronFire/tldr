@@ -8,7 +8,7 @@
 
 `xml select --template --match "{{XPATH1}}" --value-of "{{XPATH2}}" {{path/to/input.xml|URI}}`
 
-- Match  "XPATH1" and print the value of "XPATH2" as text with new-lines:
+- Match "XPATH1" and print the value of "XPATH2" as text with new-lines:
 
 `xml select --text --template --match "{{XPATH1}}" --value-of "{{XPATH2}}" --nl {{path/to/input.xml|URI}}`
 
@@ -20,6 +20,6 @@
 
 `xml select --text --template --inp-name --output " " --value-of "count(node())" --nl {{path/to/input1.xml|URI}} {{path/to/input2.xml|URI}}`
 
-- Display help for the `select` subcommand:
+- Display help:
 
 `xml select --help`

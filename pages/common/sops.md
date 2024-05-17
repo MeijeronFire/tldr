@@ -1,14 +1,13 @@
 # sops
 
-> SOPS: Secrets OPerationS.
-> Tool for managing secrets.
+> SOPS (Secrets OPerationS): manage secrets.
 > More information: <https://github.com/mozilla/sops>.
 
 - Encrypt a file:
 
 `sops -e {{path/to/myfile.json}} > {{path/to/myfile.enc.json}}`
 
-- Decrypt a file to the standard output:
+- Decrypt a file to `stdout`:
 
 `sops -d {{path/to/myfile.enc.json}}`
 

@@ -1,4 +1,4 @@
-# docker-build
+# docker build
 
 > Construit une image à partir d'un Dockerfile.
 > Plus d'informations : <https://docs.docker.com/engine/reference/commandline/build/>.
@@ -14,6 +14,10 @@
 - Construire une image Docker et l'étiquette :
 
 `docker build --tag {{nom:etiquette}} .`
+
+- Construit une image Docker sans contexte de construction :
+
+`docker build --tag {{nom:etiquette}} - < {{Dockerfile}}`
 
 - Ne pas utiliser le cache lors de la construction de l'image :
 

@@ -1,7 +1,7 @@
 # sudo
 
 > Exécute une commande unique en tant que super-utilisateur (super-user) ou un autre utilisateur.
-> Plus d'information: <https://www.sudo.ws/sudo.html>.
+> Plus d'informations : <https://www.sudo.ws/sudo.html>.
 
 - Exécute une commande en tant que super-utilisateur :
 
@@ -15,7 +15,7 @@
 
 `sudo --user={{utilisateur}} --group={{groupe}} {{id -a}}`
 
-- Répéte la dernière commande préfixée de `sudo` (uniquement dans `bash`, `zsh`, etc.) :
+- Répéte la dernière commande préfixée de `sudo` (uniquement dans Bash, Zsh, etc.) :
 
 `sudo !!`
 

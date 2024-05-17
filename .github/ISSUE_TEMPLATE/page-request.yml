@@ -1,13 +1,13 @@
 name: 📄 Page request
-title: "page request: "
-description: Page request template.
-labels: new command
+title: "Page request: "
+description: Request creation of a page.
+labels: new command, help wanted
 body:
   - type: textarea
     attributes:
       label: Command description
       description: Describe a command you want to be summarized.
-      placeholder: Tell us what TLDR page you want to see!
+      placeholder: Tell us about the command!
     validations:
       required: true
   - type: input
@@ -15,26 +15,33 @@ body:
       label: Command details
       description: Describe any details related to a command.
       placeholder: e.g. command version
+  - type: input
+    attributes:
+      label: Documentation
+      description: Link to the official documentation.
+      placeholder: https://example.com
   - type: dropdown
     attributes:
-      label: OS
-      description: Select an operating system category which this command falls into.
-      multiple: false
+      label: Platform
+      description: What platform does the program run on? (Select "Common" if the program works on more than one platform)
       options:
-        - Linux
         - Android
-        - macOS
+        - Common
+        - FreeBSD
+        - Linux
+        - macOS (OS X)
+        - NetBSD
+        - OpenBSD
+        - SunOS
         - Windows
-        - General
-        - Other
     validations:
       required: true
   - type: input
     attributes:
-      label: OS details
-      description: Describe any details related to an operating system.
-      placeholder: |
-        e.g. OS version obtained via:
-        `uname -a` for Linux
-        `sw_vers` for macOS
-        `ver` for Windows
+      label: VCS repository link (e.g. GitHub, GitLab)
+      description: Link to the Version Control System repository if the project is open source.
+      placeholder: https://github.com/user/repo
+  - type: textarea
+    attributes:
+      label: Additional information
+      description: Provide additional information if the command differs between platforms.

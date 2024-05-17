@@ -1,7 +1,7 @@
 # whoami
 
 > Mostra detalhes sobre o usuário atual.
-> Mais informações: <https://docs.microsoft.com/windows-server/administration/windows-commands/whoami>.
+> Mais informações: <https://learn.microsoft.com/windows-server/administration/windows-commands/whoami>.
 
 - Mostra o username do usuário atual:
 
@@ -19,6 +19,6 @@
 
 `whoami /upn`
 
-- Mostra o id de logon do usuário atual:
+- Mostra o ID de logon do usuário atual:
 
 `whoami /logonid`

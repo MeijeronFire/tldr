@@ -4,14 +4,6 @@
 > AWS EC2 stellt eine sichere und skalierbare Einheit in der AWS Cloud zur Verfügung, um ein schnelleres Entwickeln und Ausrollen von Software zu ermöglichen.
 > Weitere Informationen: <https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/index.html>.
 
-- Liste alle verfügbaren EC2 Befehle auf:
-
-`aws ec2 help`
-
-- Zeige Hilfe für bestimmte EC2 Unterbefehle an:
-
-`aws ec2 {{unterbefehl}} help`
-
 - Liste Informationen zu einer bestimmten Instanz auf:
 
 `aws ec2 describe-instances --instance-ids {{instanz_id}}`
@@ -24,14 +16,22 @@
 
 `aws ec2 describe-volumes`
 
-- Liste Informationen zu einem bestimmten EC2 Volumen auf:
+- Lösche ein EC2 Volumen:
 
-`aws ec2 describe-volume --volume-id {{volumen_id}}`
+`aws ec2 delete-volume --volume-id {{volumen_id}}`
 
-- Erstelle einen Snapshot, basierend auf einem EC2 Volumen:
+- Erstelle einen Snapshot basierend auf einem EC2 Volumen:
 
 `aws ec2 create-snapshot --volume-id {{volumen_id}}`
 
 - Liste alle verfügbaren AMIs (Amazon Machine Images) auf:
 
 `aws ec2 describe-images`
+
+- Liste alle verfügbaren EC2 Befehle auf:
+
+`aws ec2 help`
+
+- Zeige Hilfe für bestimmte EC2 Unterbefehle an:
+
+`aws ec2 {{unterbefehl}} help`

@@ -2,16 +2,16 @@
 
 > Executar comandos num momento mais tarde quando a carga do sistema permitir.
 > O serviço atd (ou atrun) deve correr para atuais execuções.
-> Mais informações: <https://man.archlinux.org/man/at.1>.
+> Mais informações: <https://manned.org/batch>.
 
-- Executar comandos da entrada padrão (premir `Ctrl + D` quando terminado):
+- Executa comandos da entrada padrão (premir `Ctrl + D` quando terminado):
 
 `batch`
 
-- Executar um comando da entrada padrão:
+- Executa um comando da entrada padrão:
 
 `echo "{{./criar_copia_bd.sh}}" | batch`
 
-- Executar comandos de um dado ficheiro:
+- Executa comandos de um dado ficheiro:
 
 `batch -f {{caminho/para/ficheiro}}`

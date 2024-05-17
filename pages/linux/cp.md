@@ -19,9 +19,13 @@
 
 `cp -vr {{path/to/source_directory}} {{path/to/target_directory}}`
 
-- Copy text files to another location, in interactive mode (prompts user before overwriting):
+- Copy multiple files at once to a directory:
 
-`cp -i {{*.txt}} {{path/to/target_directory}}`
+`cp -t {{path/to/destination_directory}} {{path/to/file1 path/to/file2 ...}}`
+
+- Copy all files with a specific extension to another location, in interactive mode (prompts user before overwriting):
+
+`cp -i {{*.ext}} {{path/to/target_directory}}`
 
 - Follow symbolic links before copying:
 

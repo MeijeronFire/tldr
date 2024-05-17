@@ -11,9 +11,9 @@
 
 `flatpak install {{remote}} {{name}}`
 
-- List all installed applications and runtimes:
+- List installed applications, ignoring runtimes:
 
-`flatpak list`
+`flatpak list --app`
 
 - Update all installed applications and runtimes:
 
@@ -23,13 +23,13 @@
 
 `flatpak remote-add --if-not-exists {{remote_name}} {{remote_url}}`
 
-- List all configured remote sources:
-
-`flatpak remote-list`
-
 - Remove an installed application:
 
 `flatpak remove {{name}}`
+
+- Remove all unused applications:
+
+`flatpak remove --unused`
 
 - Show information about an installed application:
 

@@ -2,7 +2,7 @@
 
 > Mentransfer data dari atau ke server.
 > Mendukung sebagian besar protokol, termasuk HTTP, FTP, dan POP3.
-> Informasi lebih lanjut: <https://curl.se>.
+> Informasi lebih lanjut: <https://curl.se/docs/manpage.html>.
 
 - Unduh konten URL ke file:
 
@@ -14,7 +14,7 @@
 
 - Unduh file, mengikuti pengalihan lokasi, dan secara otomatis melanjutkan transfer file sebelumnya:
 
-`curl --remote-name --location --continue-at - {{http://contoh.com/filename}}`
+`curl --fail --remote-name --location --continue-at - {{http://contoh.com/filename}}`
 
 - Mengirim data form yang telah di encode (permintaan POST atau tipe data `application/x-www-form-urlencoded`). Gunakan `--data @file_name` atau `--data @'-'` untuk membaca dari STDIN:
 
@@ -30,7 +30,7 @@
 
 - Memberikan nama pengguna dan kata sandi untuk otentikasi server:
 
-`curl --user myusername:mypassword {{http://contoh.com}}`
+`curl --user {{nama_pengguna}} {{http://contoh.com}}`
 
 - Memberikan sertifikat klien dan kunci untuk sumber daya, melewati validasi sertifikat:
 

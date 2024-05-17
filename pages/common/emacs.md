@@ -12,6 +12,10 @@
 
 `emacs +{{line_number}} {{path/to/file}}`
 
+- Run an Emacs Lisp file as a script:
+
+`emacs --script {{path/to/file.el}}`
+
 - Start Emacs in console mode (without an X window):
 
 `emacs --no-window-system`
@@ -26,8 +30,8 @@
 
 - Save a file in Emacs:
 
-`Ctrl + X, Ctrl + S`
+`<Ctrl> + X, <Ctrl> + S`
 
 - Quit Emacs:
 
-`Ctrl + X, Ctrl + C`
+`<Ctrl> + X, <Ctrl> + C`

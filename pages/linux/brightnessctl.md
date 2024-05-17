@@ -1,6 +1,6 @@
 # brightnessctl
 
-> Utility for reading and controlling device brightness for GNU/Linux operating systems.
+> Utility for reading and controlling device brightness for Linux operating systems.
 > More information: <https://github.com/Hummer12007/brightnessctl>.
 
 - List devices with changeable brightness:
@@ -21,4 +21,4 @@
 
 - Decrease brightness by a specified decrement:
 
-`brightnessctl set {{-10%}}`
+`brightnessctl set {{10%-}}`

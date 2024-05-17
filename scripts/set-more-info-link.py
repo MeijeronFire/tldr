@@ -1,22 +1,64 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: MIT
 
+"""
+A Python script to add or update the "More information" link for all translations of a page.
+
+Note: If the current directory or one of its parents is called "tldr", the script will assume it is the tldr root, i.e., the directory that contains a clone of https://github.com/tldr-pages/tldr
+If you aren't, the script will use TLDR_ROOT as the tldr root. Also, ensure 'git' is available.
+
+Usage:
+    python3 scripts/set-more-info-link.py [-p PAGE] [-S] [-s] [-n] [LINK]
+
+Options:
+    -p, --page PAGE
+        Specify the alias page in the format "platform/alias_command.md". This option allows setting the link for a specific page.
+    -S, --sync
+        Synchronize each translation's more information link (if exists) with that of the English page.
+    -s, --stage
+        Stage modified pages (requires 'git' on $PATH and TLDR_ROOT to be a Git repository).
+    -n, --dry-run
+        Show what changes would be made without actually modifying the page.
+
+Positional Argument:
+    LINK          The link to be set as the "More information" link.
+
+Examples:
+    1. Set the link for a specific page:
+       python3 scripts/set-more-info-link.py -p common/tar.md https://example.com
+       python3 scripts/set-more-info-link.py --page common/tar.md https://example.com
+
+    2. Read English pages and synchronize more information links across translations:
+       python3 scripts/set-more-info-link.py -S
+       python3 scripts/set-more-info-link.py --sync
+
+    3. Read English pages, synchronize more information links across translations and stage modified pages for commit:
+       python3 scripts/set-more-info-link.py -Ss
+       python3 scripts/set-more-info-link.py --sync --stage
+
+    4. Show what changes would be made across translations:
+       python3 scripts/set-more-info-link.py -Sn
+       python3 scripts/set-more-info-link.py --sync --dry-run
+"""
+
 import argparse
 import os
 import re
 import subprocess
-import sys
+from pathlib import Path
 
 labels = {
     "en": "More information:",
     "ar": "لمزيد من التفاصيل:",
     "bn": "আরও তথ্য পাবেন:",
     "bs": "Više informacija:",
+    "cs": "Více informací:",
     "ca": "Més informació:",
     "da": "Mere information:",
     "de": "Weitere Informationen:",
     "es": "Más información:",
     "fa": "اطلاعات بیشتر:",
+    "fi": "Lisätietoja:",
     "fr": "Plus d'informations :",
     "sh": "Više informacija:",
     "hi": "अधिक जानकारी:",
@@ -24,6 +66,7 @@ labels = {
     "it": "Maggiori informazioni:",
     "ja": "詳しくはこちら:",
     "ko": "더 많은 정보:",
+    "lo": "ຂໍ້ມູນເພີ່ມເຕີມ:",
     "ml": "കൂടുതൽ വിവരങ്ങൾ:",
     "ne": "थप जानकारी:",
     "nl": "Meer informatie:",
@@ -36,8 +79,8 @@ labels = {
     "sr": "Više informacija na:",
     "sv": "Mer information:",
     "ta": "மேலும் விவரத்திற்கு:",
-    "th": "ดูเพิ่มเติม:",
-    "tr": "Daha fazla bilgi:",
+    "th": "ข้อมูลเพิ่มเติม:",
+    "tr": "Daha fazla bilgi için:",
     "uk": "Більше інформації:",
     "uz": "Ko'proq malumot:",
     "zh_TW": "更多資訊：",
@@ -48,22 +91,25 @@ IGNORE_FILES = (".DS_Store",)
 
 
 def get_tldr_root():
-    # if this script is running from tldr/scripts, the parent's parent is the root
-    f = os.path.normpath(__file__)
-    if f.endswith("tldr/scripts/set-more-info-link.py"):
-        return os.path.dirname(os.path.dirname(f))
+    """
+    Get the path of local tldr repository for environment variable TLDR_ROOT.
+    """
 
-    if "TLDR_ROOT" in os.environ:
-        return os.environ["TLDR_ROOT"]
-    else:
-        print(
-            "\x1b[31mPlease set TLDR_ROOT to the location of a clone of https://github.com/tldr-pages/tldr."
-        )
-        sys.exit(1)
+    # If this script is running from tldr/scripts, the parent's parent is the root
+    f = Path(__file__).resolve()
+    if (
+        tldr_root := next((path for path in f.parents if path.name == "tldr"), None)
+    ) is not None:
+        return tldr_root
+    elif "TLDR_ROOT" in os.environ:
+        return Path(os.environ["TLDR_ROOT"])
+    raise SystemExit(
+        "\x1b[31mPlease set TLDR_ROOT to the location of a clone of https://github.com/tldr-pages/tldr."
+    )
 
 
-def set_link(file, link):
-    with open(file) as f:
+def set_link(path: Path, link: str, dry_run=False) -> str:
+    with path.open(encoding="utf-8") as f:
         lines = f.readlines()
 
     desc_start = 0
@@ -78,18 +124,18 @@ def set_link(file, link):
             break
 
     # compute locale
-    pages_dir = os.path.basename(os.path.dirname(os.path.dirname(file)))
-    if "." in pages_dir:
-        _, locale = pages_dir.split(".")
+    pages_dirname = path.parents[1].name
+    if "." in pages_dirname:
+        _, locale = pages_dirname.split(".")
     else:
         locale = "en"
 
     # build new line
-    if locale == "hi":
+    if locale in ["bn", "hi", "ne"]:
         new_line = f"> {labels[locale]} <{link}>।\n"
-    elif locale == "ja":
+    elif locale in ["ja", "th"]:
         new_line = f"> {labels[locale]} <{link}>\n"
-    elif locale == "zh" or locale == "zh_TW":
+    elif locale in ["zh", "zh_TW"]:
         new_line = f"> {labels[locale]}<{link}>.\n"
     else:
         new_line = f"> {labels[locale]} <{link}>.\n"
@@ -98,23 +144,35 @@ def set_link(file, link):
         # return empty status to indicate that no changes were made
         return ""
 
+    status_prefix = "\x1b[36m"  # Color code for pages
+
     if re.search(r"^>.*<.+>", lines[desc_end]):
         # overwrite last line
         lines[desc_end] = new_line
-        status = "\x1b[34mlink updated"
+        status_prefix = "\x1b[34m"
+        action = "updated"
     else:
         # add new line
         lines.insert(desc_end + 1, new_line)
-        status = "\x1b[36mlink added"
+        status_prefix = "\x1b[36m"
+        action = "added"
 
-    with open(file, "w") as f:
-        f.writelines(lines)
+    if dry_run:
+        status = f"link would be {action}"
+    else:
+        status = f"link {action}"
+
+    status = f"{status_prefix}{status}\x1b[0m"
+
+    if not dry_run:
+        with path.open("w", encoding="utf-8") as f:
+            f.writelines(lines)
 
     return status
 
 
-def get_link(file):
-    with open(file) as f:
+def get_link(path: Path) -> str:
+    with path.open(encoding="utf-8") as f:
         lines = f.readlines()
 
     desc_start = 0
@@ -135,17 +193,19 @@ def get_link(file):
         return ""
 
 
-def sync(root, pages_dirs, command, link):
-    rel_paths = []
+def sync(
+    root: Path, pages_dirs: list[str], command: str, link: str, dry_run=False
+) -> list[str]:
+    paths = []
     for page_dir in pages_dirs:
-        path = os.path.join(root, page_dir, command)
-        if os.path.exists(path):
-            rel_path = path.replace(f"{root}/", "")
-            rel_paths.append(rel_path)
-            status = set_link(path, link)
+        path = root / page_dir / command
+        if path.exists():
+            rel_path = "/".join(path.parts[-3:])
+            status = set_link(path, link, dry_run)
             if status != "":
+                paths.append(path)
                 print(f"\x1b[32m{rel_path} {status}\x1b[0m")
-    return rel_paths
+    return paths
 
 
 def main():
@@ -161,6 +221,13 @@ def main():
         help='page name in the format "platform/command.md"',
     )
     parser.add_argument(
+        "-S",
+        "--sync",
+        action="store_true",
+        default=False,
+        help="synchronize each translation's more information link (if exists) with that of English page",
+    )
+    parser.add_argument(
         "-s",
         "--stage",
         action="store_true",
@@ -168,69 +235,59 @@ def main():
         help="stage modified pages (requires `git` to be on $PATH and TLDR_ROOT to be a Git repository)",
     )
     parser.add_argument(
-        "-S",
-        "--sync",
+        "-n",
+        "--dry-run",
         action="store_true",
         default=False,
-        help="synchronize each translation's more information link (if exists) with that of English page",
+        help="show what changes would be made without actually modifying the pages",
     )
     parser.add_argument("link", type=str, nargs="?", default="")
     args = parser.parse_args()
 
     root = get_tldr_root()
-    pages_dirs = [d for d in os.listdir(root) if d.startswith("pages")]
+    pages_dirs = [d for d in root.iterdir() if d.name.startswith("pages")]
 
-    rel_paths = []
+    target_paths = []
 
     # Use '--page' option
     if args.page != "":
-        target_paths = []
-
         if not args.page.lower().endswith(".md"):
             args.page = f"{args.page}.md"
+        arg_platform, arg_page = args.page.split("/")
 
         for pages_dir in pages_dirs:
-            pages_dir_path = os.path.join(root, pages_dir)
-            platforms = [i for i in os.listdir(pages_dir_path) if i not in IGNORE_FILES]
-            for platform in platforms:
-                platform_path = os.path.join(pages_dir_path, platform)
-                commands = [
-                    f"{platform}/{p}"
-                    for p in os.listdir(platform_path)
-                    if p not in IGNORE_FILES
-                ]
-                if args.page in commands:
-                    path = os.path.join(pages_dir_path, args.page)
-                    target_paths.append(path)
+            page_path = pages_dir / arg_platform / arg_page
+            if not page_path.exists():
+                continue
+            target_paths.append(page_path)
 
         target_paths.sort()
 
         for path in target_paths:
-            rel_path = path.replace(f"{root}/", "")
-            rel_paths.append(rel_path)
+            rel_path = "/".join(path.parts[-3:])
             status = set_link(path, args.link)
             if status != "":
                 print(f"\x1b[32m{rel_path} {status}\x1b[0m")
 
     # Use '--sync' option
     elif args.sync:
-        pages_dirs.remove("pages")
-        en_page = os.path.join(root, "pages")
-        platforms = [i for i in os.listdir(en_page) if i not in IGNORE_FILES]
+        pages_dirs.remove(root / "pages")
+        en_path = root / "pages"
+        platforms = [i.name for i in en_path.iterdir() if i.name not in IGNORE_FILES]
         for platform in platforms:
-            platform_path = os.path.join(en_page, platform)
+            platform_path = en_path / platform
             commands = [
-                f"{platform}/{p}"
-                for p in os.listdir(platform_path)
-                if p not in IGNORE_FILES
+                f"{platform}/{page.name}"
+                for page in platform_path.iterdir()
+                if page not in IGNORE_FILES
             ]
             for command in commands:
-                link = get_link(os.path.join(root, "pages", command))
+                link = get_link(root / "pages" / command)
                 if link != "":
-                    rel_paths += sync(root, pages_dirs, command, link)
+                    target_paths += sync(root, pages_dirs, command, link, args.dry_run)
 
-    if args.stage:
-        subprocess.call(["git", "add", *rel_paths], cwd=root)
+    if args.stage and not args.dry_run and len(target_paths) > 0:
+        subprocess.call(["git", "add", *target_paths], cwd=root)
 
 
 if __name__ == "__main__":

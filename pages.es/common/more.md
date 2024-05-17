@@ -1,13 +1,13 @@
 # more
 
 > Abre un archivo para lectura interactiva, permitiendo navegar y buscar.
-> Más información: <https://manned.org/more>.
+> Más información: <https://manned.org/more.1p>.
 
 - Abre un archivo:
 
 `more {{ruta/al/archivo}}`
 
-- Abre un archivo mostrando desde una línea especifica:
+- Abre un archivo mostrando desde una línea específica:
 
 `more +{{numero_linea}} {{ruta/al/archivo}}`
 
@@ -17,7 +17,7 @@
 
 - Avanza hacia la siguiente página:
 
-`<Espacio>`
+`<Space>`
 
 - Busca una cadena (presione `n` para ir a la siguiente coincidencia):
 

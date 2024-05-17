@@ -1,16 +1,16 @@
 # arduino-builder
 
-> A command-line tool for compiling arduino sketches.
-> DEPRECATION WARNING: This tool is being phased out in favor of `arduino`.
+> Compile arduino sketches.
+> DEPRECATION WARNING: this tool is being phased out in favor of `arduino`.
 > More information: <https://github.com/arduino/arduino-builder>.
 
 - Compile a sketch:
 
 `arduino-builder -compile {{path/to/sketch.ino}}`
 
-- Specify the debug level (1 to 10, defaults to 5):
+- Specify the debug level (default: 5):
 
-`arduino-builder -debug-level {{level}}`
+`arduino-builder -debug-level {{1..10}}`
 
 - Specify a custom build directory:
 

@@ -2,11 +2,11 @@
 
 > Transfers data from or to a server.
 > Supports most protocols, including HTTP, FTP, and POP3.
-> More information: <https://curl.se>.
+> More information: <https://curl.se/docs/manpage.html>.
 
 - Download the contents of a URL to a file:
 
-`curl {{http://example.com}} --output {{filename}}`
+`curl {{http://example.com}} --output {{path/to/file}}`
 
 - Download a file, saving the output under the filename indicated by the URL:
 
@@ -28,9 +28,9 @@
 
 `curl --data {{'{"name":"bob"}'}} --header {{'Content-Type: application/json'}} {{http://example.com/users/1234}}`
 
-- Pass a username and password for server authentication:
+- Pass a username and prompt for a password to authenticate to the server:
 
-`curl --user myusername:mypassword {{http://example.com}}`
+`curl --user {{username}} {{http://example.com}}`
 
 - Pass client certificate and key for a resource, skipping certificate validation:
 

@@ -1,37 +1,33 @@
 # pacman
 
 > Utilitário para gerir pacotes Arch Linux.
-> Sub comandos como `pacman sync` tem a sua própria documentação.
+> Veja também: `pacman-database`, `pacman-deptest`, `pacman-files`, `pacman-key`, `pacman-mirrors`, `pacman-query`, `pacman-remove`, `pacman-sync`, `pacman-upgrade`.
 > Mais informações: <https://man.archlinux.org/man/pacman.8>.
 
-- Sincronizar e actualizar todos os pacotes:
+- Sincroniza e actualiza todos os pacotes:
 
-`sudo pacman --sync --refresh --sysupgrade`
+`sudo pacman -Syu`
 
-- Instalar um novo pacote:
+- Instala um novo pacote:
 
-`sudo pacman --sync {{package_name}}`
+`sudo pacman -S {{package_name}}`
 
-- Remover um pacote e todas as dependencias:
+- Remove um pacote e todas as dependencias:
 
-`sudo pacman --remove --recursive {{nome_do_pacote}}`
+`sudo pacman -Rs {{nome_do_pacote}}`
 
-- Procurar um pacote na base de dados por palavra chave ou expressão regular (regex):
+- Lista versão dos pactotes instalados:
 
-`pacman --sync --search "{{search_pattern}}"`
+`pacman -Q`
 
-- Listar versão dos pactotes instalados:
+- Lista versão dos pactotes instalados explicitamente:
 
-`pacman --query`
+`pacman -Qe`
 
-- Listar versão dos pactotes instalados explicitamente:
+- Lista pacotes órfãos (instalados como dependencia mas não exigidos por nenhum pacote):
 
-`pacman --query --explicit`
+`pacman -Qtdq`
 
-- Listar pacotes órfãos (instalados como dependencia mas não exigidos por nenhum pacote):
+- Remove memória armazenada (cache) do `pacman`:
 
-`pacman --query --unrequired --deps --quiet`
-
-- Remover memória armazenada (cache) do `pacman`:
-
-`sudo pacman --sync --clean --clean`
+`sudo pacman -Scc`

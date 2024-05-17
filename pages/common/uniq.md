@@ -1,25 +1,25 @@
 # uniq
 
-> Output the unique lines from the given input or file.
+> Output the unique lines from a input or file.
 > Since it does not detect repeated lines unless they are adjacent, we need to sort them first.
 > More information: <https://www.gnu.org/software/coreutils/uniq>.
 
 - Display each line once:
 
-`sort {{file}} | uniq`
+`sort {{path/to/file}} | uniq`
 
 - Display only unique lines:
 
-`sort {{file}} | uniq -u`
+`sort {{path/to/file}} | uniq -u`
 
 - Display only duplicate lines:
 
-`sort {{file}} | uniq -d`
+`sort {{path/to/file}} | uniq -d`
 
 - Display number of occurrences of each line along with that line:
 
-`sort {{file}} | uniq -c`
+`sort {{path/to/file}} | uniq -c`
 
 - Display number of occurrences of each line, sorted by the most frequent:
 
-`sort {{file}} | uniq -c | sort -nr`
+`sort {{path/to/file}} | uniq -c | sort -nr`

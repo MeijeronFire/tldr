@@ -1,7 +1,7 @@
 # nmcli device
 
 > NetworkManager ile donanım aygıtı yönetimi.
-> Daha fazla bilgi: <https://man.archlinux.org/man/nmcli.1>.
+> Daha fazla bilgi için: <https://networkmanager.dev/docs/api/latest/nmcli.html>.
 
 - Tüm ağ arayüzlerinin durumlarını yazdır:
 
@@ -13,7 +13,7 @@
 
 - Belirtilen ad ve parola ile kablosuz ağa bağlan:
 
-`nmcli device wifi connect {{ssid}} password {{parola}}`
+`nmcli --ask device wifi connect {{ssid}}`
 
 - Geçerli kablosuz ağ için parola ve QR kodunu yazdır:
 

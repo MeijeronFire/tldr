@@ -1,6 +1,7 @@
 # xterm
 
 > X Ekran Sistemi için terminal öykünücüsü.
+> Daha fazla bilgi için: <https://manned.org/xterm>.
 
 - `Örnek` başlığına sahip bir terminal aç:
 
@@ -20,4 +21,4 @@
 
 - Terminali bir Serif fontu ve 20'ye eşit olan bir font büyüklüğü ile aç:
 
-`xterm -fa "{{Serif}}" -fs {{20}}`
+`xterm -fa {{'Serif'}} -fs {{20}}`

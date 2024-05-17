@@ -1,7 +1,7 @@
 # git log
 
 > Commit geçmişini göster.
-> Daha fazla bilgi: <https://git-scm.com/docs/git-log>.
+> Daha fazla bilgi için: <https://git-scm.com/docs/git-log>.
 
 - Mevcut olandan başlayarak mevcut çalışma ortamındaki git deposunun commit silsilesini ters kronolojik düzende göster:
 
@@ -33,4 +33,4 @@
 
 - İki tarih arasında yapılmış commit'leri göster:
 
-`git log --before={{tarih}} --after={{tarih}}`
+`git log --before="{{tarih}}" --after="{{tarih}}"`

@@ -2,7 +2,7 @@
 
 > Trasferisci dati da o ad un server.
 > Supporta molti protocollo, tra cui HTTP, FTP e POP3.
-> Maggiori informazioni: <https://curl.se>.
+> Maggiori informazioni: <https://curl.se/docs/manpage.html>.
 
 - Scarica il contenuto di un URL in un file:
 
@@ -14,7 +14,7 @@
 
 - Scarica un file, seguendo reindirizzamenti, e continuando automaticamente (riprendendo) un trasferimento precedente:
 
-`curl --remote-name --location --continue-at - {{http://example.com/nome_file}}`
+`curl --fail --remote-name --location --continue-at - {{http://example.com/nome_file}}`
 
 - Invia dati form-encoded (richiesta POST di tipo `application/x-www-form-urlencoded`):
 
@@ -30,8 +30,8 @@
 
 - Utilizza un nome utente ed una password per l'autenticazione con il server:
 
-`curl --user utente:password {{http://example.com}}`
+`curl --user {{utente}} {{http://example.com}}`
 
-- Utilizza un certificato ed una chiave per una risorsa, ignorando la validazione dei certificati:
+- Utilizza un certificato ed richiedere per una chiave per una risorsa, ignorando la validazione dei certificati:
 
 `curl --cert {{client.pem}} --key {{chiave.pem}} --insecure {{https://example.com}}`

@@ -1,7 +1,7 @@
 # dotnet ef
 
 > Perform design-time development tasks for Entity Framework Core.
-> More information: <https://docs.microsoft.com/ef/core/cli/dotnet>.
+> More information: <https://learn.microsoft.com/ef/core/cli/dotnet>.
 
 - Update the database to a specified migration:
 
@@ -31,6 +31,6 @@
 
 `dotnet ef migrations list`
 
-- Generate a SQL script from migrations range:
+- Generate an SQL script from migrations range:
 
 `dotnet ef migrations script {{from_migration}} {{to_migration}}`

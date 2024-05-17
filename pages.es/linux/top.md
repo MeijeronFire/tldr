@@ -7,7 +7,7 @@
 
 `top`
 
-- No muestra ningún proceso inactivo o zombie:
+- Oculta los procesos inactivos o zombies:
 
 `top -i`
 
@@ -23,10 +23,10 @@
 
 `top -Hp {{id_proceso}}`
 
-- Muestra solo los procesos con un(os) PID(s) dado(s), sepadados por comas. (Normalmente no se conoce el PID de antemano. Este ejemplo lo obtiene del nombre del proceso):
+- Muestra solo los procesos con un(os) PID(s) dado(s), separados por comas. (Normalmente no se conoce el PID de antemano. Este ejemplo lo obtiene del nombre del proceso):
 
 `top -p $(pgrep -d ',' {{nombre_proceso}})`
 
-- Obtiene ayuda acerca de los comandos interactivos:
+- Obtén ayuda acerca de los comandos interactivos:
 
 `?`

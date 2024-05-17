@@ -1,8 +1,8 @@
 # lpr
 
-> CUPS tool for printing files.
-> See also `lpstat` and `lpadmin` for listing and configuring printers.
-> More information: <http://www.CUPS.org>.
+> Print files.
+> See also: `lpstat` and `lpadmin`.
+> More information: <https://openprinting.github.io/cups/doc/man-lpr.html>.
 
 - Print a file to the default printer:
 

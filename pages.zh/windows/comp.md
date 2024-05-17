@@ -2,7 +2,7 @@
 
 > 比较两个文件或文件集的内容。
 > 使用通配符（*）来比较文件集。
-> 更多信息：<https://docs.microsoft.com/windows-server/administration/windows-commands/comp>.
+> 更多信息：<https://learn.microsoft.com/windows-server/administration/windows-commands/comp>.
 
 - 交互式比较文件：
 
@@ -14,7 +14,7 @@
 
 - 比较两个文件集：
 
-`comp {{目录 1/*}} {{目录 2/*}}`
+`comp {{路径\到\目录1}}\* {{路径\到\目录2}}\*`
 
 - 以十进制格式显示差异：
 

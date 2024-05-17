@@ -7,15 +7,15 @@
 
 `aptitude update`
 
-- Instalar un nuevo paquete y sus dependencias:
+- Instala un nuevo paquete y sus dependencias:
 
 `aptitude install {{paquete}}`
 
-- Buscar un paquete:
+- Busca un paquete:
 
 `aptitude search {{paquete}}`
 
-- Buscar un paquete instalado (`?installed` es un término de búsqueda de `aptitude`):
+- Busca un paquete instalado (`?installed` es un término de búsqueda de `aptitude`):
 
 `aptitude search '?installed({{paquete}})'`
 
@@ -23,7 +23,7 @@
 
 `aptitude remove {{paquete}}`
 
-- Actualiza todos los paquetes sus nuevas versiones disponibles:
+- Actualiza todos los paquetes a sus nuevas versiones disponibles:
 
 `aptitude upgrade`
 
@@ -31,6 +31,6 @@
 
 `aptitude full-upgrade`
 
-- Mantiente un paquete instalado para que no sea actualizado automáticamente:
+- Mantiene un paquete instalado para que no sea actualizado automáticamente:
 
 `aptitude hold '?installed({{paquete}})'`

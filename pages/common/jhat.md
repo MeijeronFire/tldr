@@ -1,13 +1,13 @@
 # jhat
 
-> Java Heap Analysis Tool.
+> Java heap analysis tool.
 > More information: <https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jhat.html>.
 
 - Analyze a heap dump (from `jmap`), view via HTTP on port 7000:
 
 `jhat {{dump_file.bin}}`
 
-- Analyze a heap dump, specifying an alternate port for the http server:
+- Analyze a heap dump, specifying an alternate port for the HTTP server:
 
 `jhat -p {{port}} {{dump_file.bin}}`
 
